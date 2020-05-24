@@ -1,0 +1,60 @@
+* why org-mode?
+I want human-readable (i.e. portable, non-proprietary, future-proof) text documents that are capable of:
+
+** $$\LaTeX$$ (C-c C-x C-l to preview snippets)
+** embedding (and rendering) raster images inline. I don't want to have to track separate files for a single document
+
+*** base64 for raster images
+
+[[img:iVBORw0KGgoAAAANSUhEUgAAABkAAAAfCAYAAAASsGZ+AAAABHNCSVQICAgIfAhkiAAAA6hJREFU
+SEvdVklrFEEU/rp7elqiXrSzuESSODNJxGgEQYyoB9GLKIi4EXFF/A3qxR/g+htCvKl4Ez1GERUP
+MiZmAuKSzYkoma0zS3eP772emTgLdA7mkmqK6q6q9756X72llZ27DxaxzE1dZv2ifuWABGrpUlUV
+Fy+cwLbeUO0SisUidZ7m0btKb66IWOwrhoafwXXdOrkqEAa4cukkDuwfQDjUA03ToCiK16GIsCjl
+h5Txu1t0RfGW9i+y3ghIa9vYcbsMfZkAjhw+hK7OrXAcR4S9E7NaD8B1HTjUbdte7LR3/ToTra0m
+goaKaDRWViljlSXdkU6YZjPSmZScPqAFoAUCtIkeTSXLaLsGOoAtwgLtkjWuDWshj5bmFkRCHVUA
+dSB88rl4HDM/pxpyWyddM7GhbbPQV9uqLGEQRVFhZSz09++CYayCHtCh68HSqIt8oVBAwaZeyMuY
+SqUQ/fSxQrE/iKqQ6RZUVYNLXH8cG8Uo9f4duxAJhwVg9PMoxmPjCHeFsKl9s8xZlkX7PSfwB6G7
+yJAlfB/sbdFoFOfODmL40RBevR6pyJ8+dQZPnj6G2WISiC0y7BS+LswbVKbLWiAQTazp6e6Fub4Z
+165eRy6XrYCk0ylRmMvlhDK2hKleEghvXCABdllWmifeX7x8js/jY8hmF0E08jaz2RQQDiG+Ry1A
+FPsFo2cJ0WVlRNgmrre0t2M+MY++7X2wyXWZGscpyLuu6wiQiwcNQ2R0onhJIDbxamUWcPfendr7
+8/3mmPIHYe8gj9o7sAc7+/qxZu3aJbkw0/v+wzuxyh+E+GQ3TCSSSKaS+P3nN77/+IapyWm0tbWi
+lboRNBCfm8Pk5CS6QxF09/RSPBkiwzmgEUhVPeENnJeSJMCXzn1mehbnBy8gHp/Du7fvMTLyChOx
+CRw7epziZQyrm5oQpGBNJBKUy5bowpwYk8kksnzx5Jp+LuxSJs7SpfPBHEqazERtq0srHFBsOqcM
+pmbm12xDF2b+I+EIxUcG+XxeLCmQxzWiqw7EoZOwJU1NqwWkq7NL3HZg7z6ixSD+g6KUAzAY1CUF
+5clqPpgjdNX/l9SBqBRk6XQaD+4/rLXa95tZ4GJW2yog5bzDNNy8cUvylkZphUF5ZIcQxygVM/ku
+JUSW5caV1KuUjqSkclsEIWHOWW/evPaKEVm9WMdLBaoyxy//rLNEqean05yNq0GU8s+dlFVa/B+N
+LWpoCU/+u/A/wMo6Vs7P3cqx5C/fcXSG+5WzHgAAAABJRU5ErkJggg==]]
+#+BEGIN_SRC
+[[img:..base64 data here...]]
+#+END_SRC
+
+~M-x org-display-inline-images~ to display images inline
+
+For taking screenshots and embedding them, I use a script:
+#+NAME: ~/bin/clipbase64
+#+BEGIN_SRC bash
+clip && xclip -selection clip -t image/png -o | base64 | xclip -selection clip
+#+END_SRC
+
+*** and SVG
+    
+** auto format table syntax
+** running code inline (e.g., matplotlib plots)
+*** and use tables as actual data within code
+
+* notes
+installing with nixos
+
+** The error "File "/tmp/orgtex5473MjV.dvi" wasn’t produced. Please adjust ’dvipng’ part of ‘org-preview-latex-process-alist’."
+Open the file /tmp/orgtex5473MjV.log - it will tell you what it's complaining about.
+In this case, it was complaining about
+
+#+BEGIN_SRC
+! LaTeX Error: File `ulem.sty' not found.
+#+END_SRC
+
+turns out, I was using a too-minimal subset of latex, ~nixpkgs.textlive.combined.scheme-minimal~. I instead switched to a larger 
+
+#+BEGIN SRC
+(texlive.combine { inherit (texlive) scheme-small dvipng; })
+#+END_SRC
