@@ -24,6 +24,9 @@ pmbm12xDF2b+I+EIxUcG+XxeLCmQxzWiqw7EoZOwJU1NqwWkq7NL3HZg7z6ixSD+g6KUAzAY1CUF
 5clqPpgjdNX/l9SBqBRk6XQaD+4/rLXa95tZ4GJW2yog5bzDNNy8cUvylkZphUF5ZIcQxygVM/ku
 JUSW5caV1KuUjqSkclsEIWHOWW/evPaKEVm9WMdLBaoyxy//rLNEqean05yNq0GU8s+dlFVa/B+N
 LWpoCU/+u/A/wMo6Vs7P3cqx5C/fcXSG+5WzHgAAAABJRU5ErkJggg==]]
+
+see https://emacs.stackexchange.com/a/41664
+
 #+BEGIN_SRC
 [[img:..base64 data here...]]
 #+END_SRC
